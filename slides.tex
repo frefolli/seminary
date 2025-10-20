@@ -1,0 +1,296 @@
+\documentclass[dvipsnames, 10pt]{beamer}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage[
+  backend=bibtex,
+  style=ieee,
+  sorting=ydnt
+  ]{biblatex}
+\addbibresource{quotes.bib}
+
+\definecolor{PastelGreen}{HTML}{1A7A67}
+\definecolor{PastelBlue}{HTML}{2C3E50}
+\definecolor{PastelWhite}{HTML}{FAF8F6}
+\definecolor{PastelLilac}{HTML}{A391C1}
+\definecolor{PastelRed}{HTML}{FAA0A0}
+
+\definecolor{TrenordBlue}{HTML}{006297}
+\definecolor{TrenordLightGreen}{HTML}{b6dd79}
+\definecolor{TrenordDarkGreen}{HTML}{79be20}
+\definecolor{TrenordFalseGreen}{HTML}{d6e965}
+
+\definecolor{FERRed}{HTML}{d9585d}
+\definecolor{FERDarkGreen}{HTML}{369389}
+\definecolor{FERLightGreen}{HTML}{44a25a}
+
+\definecolor{ATMRed}{HTML}{ef1a2f}
+\definecolor{ATMGreen}{HTML}{5d982e}
+\definecolor{ATMYellow}{HTML}{fdb90b}
+\definecolor{ATMBlue}{HTML}{14386a}
+\definecolor{ATMLilac}{HTML}{9a8fc5}
+
+\definecolor{XMPRGreen}{HTML}{00685e}
+\definecolor{XMPRBlue}{HTML}{003da5}
+\definecolor{XMPRGray}{HTML}{474b4e}
+
+\usetheme{Madrid}
+
+%% FER
+% \setbeamercolor{palette primary}{bg=FERDarkGreen,fg=white}
+% \setbeamercolor{author in head/foot}{bg=FERLightGreen,fg=black}
+% \setbeamercolor{title in head/foot}{bg=FERRed,fg=black}
+% \setbeamercolor{date in head/foot}{bg=FERDarkGreen,fg=black}
+
+%% TRENORD
+\setbeamercolor{palette primary}{bg=TrenordBlue,fg=white}
+\setbeamercolor{author in head/foot}{bg=TrenordLightGreen,fg=black}
+\setbeamercolor{title in head/foot}{bg=TrenordDarkGreen,fg=black}
+\setbeamercolor{date in head/foot}{bg=TrenordFalseGreen,fg=black}
+
+%% ATM
+% \setbeamercolor{palette primary}{bg=ATMGreen,fg=white}
+% \setbeamercolor{author in head/foot}{bg=ATMRed,fg=black}
+% \setbeamercolor{title in head/foot}{bg=ATMYellow,fg=black}
+% \setbeamercolor{date in head/foot}{bg=ATMLilac,fg=black}
+
+%% XMPR
+% \setbeamercolor{palette primary}{bg=XMPRGreen,fg=white}
+% \setbeamercolor{author in head/foot}{bg=XMPRBlue,fg=white}
+% \setbeamercolor{title in head/foot}{bg=XMPRBlue,fg=white}
+% \setbeamercolor{date in head/foot}{bg=XMPRBlue,fg=white}
+% \setbeamercolor{structure}{fg=XMPRGray}
+
+% \usecolortheme[named=PastelBlue]{structure}
+
+\date[25 September 2025]{}
+
+\title[TSD Seminary]{A Language-Agnostic Framework for Dependency Graph Construction}
+\subtitle{}
+% \author{Refolli~F.~865955}
+\author[Francesco~Refolli]{Francesco~Refolli}
+\logo{\includegraphics[height=2.5cm]{logo_unimib.pdf}}
+
+\newcommand{\putimage}[2] {
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=#2\linewidth]{#1}
+	\end{figure}
+}
+
+\newcommand{\putimagecouple}[4] {
+  \begin{figure}[!htb]
+    \centering
+    \begin{minipage}{0.45\linewidth}
+      \centering
+      \includegraphics[width=\linewidth]{#1}
+      \caption{#2}
+    \end{minipage}
+    \hspace{0.25cm}
+    \begin{minipage}{0.45\linewidth}
+      \centering
+      \includegraphics[width=\linewidth]{#3}
+      \caption{#4}
+    \end{minipage}
+  \end{figure}
+}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}
+\frametitle{Outline}
+\tableofcontents
+\end{frame}
+
+\setbeamertemplate{logo}{}
+
+\section{Assessing Software Quality}
+\begin{frame}
+  \centering
+  \Huge
+  Assessing Software Quality
+\end{frame}
+
+\begin{frame}
+  \frametitle{Architectural Smells}
+\end{frame}
+
+\begin{frame}
+  \frametitle{God Component}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Deep Hierarchy}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Wide Hierarchy}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Cyclic Hierarchy}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Unstable Dependency}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Cyclic Dependency}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Hub-Like Dependency}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Arcan}
+\end{frame}
+
+\begin{frame}
+  \frametitle{The Dependency Graph}
+\end{frame}
+
+\begin{frame}
+  \frametitle{The Architectural Smell Graph}
+\end{frame}
+
+\section{The "Tower of Babel" Problem}
+\begin{frame}
+  \centering
+  \Huge
+  The "Tower of Babel" Problem
+\end{frame}
+
+\begin{frame}
+  \frametitle{Language Segmentation}
+\end{frame}
+
+\begin{frame}
+  \frametitle{A matter of scale}
+\end{frame}
+
+\begin{frame}
+  \frametitle{A matter of perspective}
+\end{frame}
+
+\section{A Bit of History}
+\begin{frame}
+  \centering
+  \Huge
+  A Bit of History
+\end{frame}
+
+\begin{frame}
+  \frametitle{Language Frontends}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Manual/Automatic Transpilation}
+\end{frame}
+
+\begin{frame}
+  \frametitle{AST/CST Translation}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Meta Model Abstraction}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Advanced Data Structures}
+\end{frame}
+
+\section{A New Solution}
+\begin{frame}
+  \centering
+  \Huge
+  A New Solution
+\end{frame}
+
+\begin{frame}
+  \frametitle{Very different ...}
+\end{frame}
+
+\begin{frame}
+  \frametitle{... Or very similar?}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Tree Sitter}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Why Tree Sitter?}
+\end{frame}
+
+\begin{frame}
+  \frametitle{The Approach}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Why it works}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Shenanigans}
+\end{frame}
+
+\begin{frame}
+  \frametitle{An Example}
+\end{frame}
+
+\section{Evaluation and Comparison}
+\begin{frame}
+  \centering
+  \Huge
+  Evaluation and Comparison
+\end{frame}
+
+\begin{frame}
+  \frametitle{The Dependency Detection Benchmark}
+\end{frame}
+
+\begin{frame}
+  \frametitle{The Dependency Detection Benchmark (JAVA)}
+\end{frame}
+
+\begin{frame}
+  \frametitle{The Dependency Detection Benchmark (RUST)}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Comparison with Arcan / Accuracy}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Comparison with Arcan / Similarity}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Comparison with Arcan / Efficiency}
+\end{frame}
+
+\section{Conclusions}
+\begin{frame}
+  \centering
+  \Huge
+  Conclusions
+\end{frame}
+
+\begin{frame}
+  \frametitle{Open Problems}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Future Works}
+\end{frame}
+
+\begin{frame}[allowframebreaks, noframenumbering]
+\frametitle{Bibliography}
+\printbibliography
+\nocite{*}
+\end{frame}
+
+\end{document}
