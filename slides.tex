@@ -6,6 +6,7 @@
   style=ieee,
   sorting=ydnt
   ]{biblatex}
+\usepackage[edges]{forest}
 \addbibresource{quotes.bib}
 
 \definecolor{PastelGreen}{HTML}{1A7A67}
@@ -114,46 +115,188 @@
 
 \begin{frame}
   \frametitle{Architectural Smells}
+  \begin{definition}
+    An \textbf{architectural smell} is a sign of poor design choices on the architectural level.
+  \end{definition}
+
+  \begin{itemize}
+    \item Similar to the more known Code Smells.
+    \item They can be detected by analyzing code shape, components and the dependency graph.
+    \item The presence of many smells in a software project increases the estimate of \textbf{Technical Debt}, which indicates the future cost of maintenance, development and evolution.
+    \item By Lehman's laws of software evolution we can expect it to grow over time, as bad practises effects stratify
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{God Component}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \begin{figure}
+        \begin{center}
+          \includegraphics[width=0.8\textwidth]{figures/architectural-smells/god-component.png}
+        \end{center}
+      \end{figure}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \begin{itemize}
+        \item One big component with a lot of heterogeneous sub-components inside
+        \item Probably takes care of a lot of different concerns
+        \item Probably has a lot of outwards dependencies and a few inwards dependencies
+        \item Probably is a consistent percentage of the code
+        \item Typical of Legacy Systems (especially \textbf{monolithic} architectures)
+      \end{itemize}
+    \end{column}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Deep Hierarchy}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \begin{figure}
+        \begin{center}
+          \includegraphics[width=0.6\textwidth]{figures/architectural-smells/deep-hierarchy.png}
+        \end{center}
+      \end{figure}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \begin{itemize}
+        \item A long inheritance chain, each level adding a bit of behaviour
+        \item Suggests high implementation sparsity
+        \item Suggests abuse/loss of generalization
+        \item Typical of Object-Oriented Programming
+      \end{itemize}
+    \end{column}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Wide Hierarchy}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \begin{figure}
+        \begin{center}
+          \includegraphics[width=0.7\textwidth]{figures/architectural-smells/wide-hierarchy.png}
+        \end{center}
+      \end{figure}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \begin{itemize}
+        \item A hierarchy chain with at each level many children
+        \item Suggests high implementation sparsity
+        \item Suggests abuse/loss of generalization
+        \item Typical of Object-Oriented Programming
+      \end{itemize}
+    \end{column}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Cyclic Hierarchy}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \begin{figure}
+        \begin{center}
+          \includegraphics[width=0.7\textwidth]{figures/architectural-smells/cyclic-hierarchy.png}
+        \end{center}
+      \end{figure}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \begin{itemize}
+        \item Like the previous, but with a twist
+        \item A parent component is actively depending on a child component
+        \item Suggests a short-circuit of abstractions
+        \item Typical of Object-Oriented Programming
+      \end{itemize}
+    \end{column}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Unstable Dependency}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \begin{figure}
+        \begin{center}
+          \includegraphics[width=0.7\textwidth]{figures/architectural-smells/unstable-dependency.png}
+        \end{center}
+      \end{figure}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \begin{itemize}
+        \item A stable component depending on a unstable component
+        \item (In)stability is usually defined by the ratio $\frac {Ce} {Ca + Ce}$
+        \item Such a component is difficult to maintain stable because its dependencies have a lot of reasons to change for
+      \end{itemize}
+    \end{column}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Cyclic Dependency}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \begin{figure}
+        \begin{center}
+          \includegraphics[width=0.55\textwidth]{figures/architectural-smells/cyclic-dependency.png}
+        \end{center}
+      \end{figure}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \begin{itemize}
+        \item Components involved in a cycle are difficult to change
+        \item Typical of legacy systems
+      \end{itemize}
+    \end{column}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Hub-Like Dependency}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \begin{figure}
+        \begin{center}
+          \includegraphics[width=0.7\textwidth]{figures/architectural-smells/hub-like-dependency.png}
+        \end{center}
+      \end{figure}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \begin{itemize}
+        \item A component with a lot of inwards and outwards dependencies
+        \item To stable to allow for changes
+        \item Too unstable to depend on
+        \item Typical of many legacy library components
+      \end{itemize}
+    \end{column}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Arcan}
+  \begin{figure}
+    \begin{center}
+      \includegraphics[width=0.85\textwidth]{figures/architectural-smells/arcan-list.png}
+    \end{center}
+  \end{figure}
 \end{frame}
 
 \begin{frame}
   \frametitle{The Dependency Graph}
+  \begin{figure}
+    \begin{center}
+      \includegraphics[width=0.7\textwidth]{figures/architectural-smells/arcan-dep-graph.png}
+    \end{center}
+  \end{figure}
 \end{frame}
 
 \begin{frame}
   \frametitle{The Architectural Smell Graph}
+  \begin{figure}
+    \begin{center}
+      \includegraphics[width=0.8\textwidth]{figures/architectural-smells/arcan-smell-graph.png}
+    \end{center}
+  \end{figure}
 \end{frame}
 
 \section{The "Tower of Babel" Problem}
@@ -165,14 +308,64 @@
 
 \begin{frame}
   \frametitle{Language Segmentation}
+  Computing language usage shares is not easy ...
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \begin{figure}
+        \begin{center}
+          \includegraphics[width=1.0\textwidth]{figures/githut/JavaScript.png}
+          \caption{Stats of JavaScript}
+        \end{center}
+      \end{figure}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \begin{figure}
+        \begin{center}
+          \includegraphics[width=1.0\textwidth]{figures/githut/C++.png}
+          \caption{Stats of C++}
+        \end{center}
+      \end{figure}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Language Segmentation}
+  ... but we can do some estimates
+  \begin{figure}
+    \begin{center}
+      \includegraphics[width=0.8\textwidth]{figures/githut/statistics.png}
+    \end{center}
+  \end{figure}
 \end{frame}
 
 \begin{frame}
   \frametitle{A matter of scale}
+  \begin{itemize}
+    \item A software analysis tool need to work with many programming languages.
+    \item Each deployed instance need every language interface to be useful
+    \item Each language interface is a reason to change and increases maintenance costs
+  \end{itemize}
+  \begin{figure}
+    \begin{center}
+      \includegraphics[width=0.7\textwidth]{figures/githut/problem-many-languages.png}
+    \end{center}
+  \end{figure}
 \end{frame}
 
 \begin{frame}
   \frametitle{A matter of perspective}
+  \begin{itemize}
+    \item A project can use more than one language, which is usually not supported by tools
+    \item Each language interface usually need a different implementation for the same logic
+    \item Sometimes it is easier to develop a distinct version of each language
+    \item More in the next section ...
+  \end{itemize}
+  \begin{figure}
+    \begin{center}
+      \includegraphics[width=0.7\textwidth]{figures/githut/problem-multi-languages.png}
+    \end{center}
+  \end{figure}
 \end{frame}
 
 \section{A Bit of History}
@@ -184,22 +377,75 @@
 
 \begin{frame}
   \frametitle{Language Frontends}
+  \begin{itemize}
+    \item Common approach: use language frontends (e.g., \texttt{Clang}, \texttt{Eclipse JDT/CDT}) to parse code and extract data.
+    \item APIs are heterogeneous and lack standardization.
+    \item The \textit{Language Server Protocol (LSP)} aims to unify such interfaces, but still has limits in query expressiveness and flexibility.
+    \item Frontends are designed for IDEs/compilers, requiring extra adaptation for analysis tools.
+    \item Typically heavy-weight — include many elaborations not needed by analysis tools.
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Manual/Automatic Transpilation}
+  \begin{itemize}
+      \item Some works avoid using multiple language frontends by translating source code into a single target language or DSL.
+      \item Translation can be done manually or via transpilers.
+      \item Works well for languages designed for transpilation (e.g., \texttt{TypeScript}, \texttt{Haxe}).
+      \item For other languages, translation may lose semantic details (e.g., classes, namespaces, packages).
+      \item To preserve semantics, the target language must be as expressive as the source.
+      \item This approach remains inefficient:
+      \begin{itemize}
+          \item Automatic translation between languages is still an open research problem.
+          \item Manual translation is time-consuming and error-prone.
+          \item Translated code must still be parsed and analyzed afterward.
+      \end{itemize}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{AST/CST Translation}
+  \begin{itemize}
+      \item Another approach: translate a \textbf{language-dependent AST} into a \textbf{language-independent AST}.
+      \item Enables analysis tools to apply algorithms on a common, unified representation.
+      \item Can also be applied to \textbf{Concrete Syntax Trees (CSTs)}, which capture full program syntax.
+      \item Typically relies on language frontends (manual or generated) to perform near 1:1 translation into an \textit{extended AST (eAST)}.
+      \item Sometimes produces an intermediate serialized form (e.g., \texttt{XML}).
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Meta Model Abstraction}
+  \begin{itemize}
+    \item A \textbf{meta model abstraction} offers a language-agnostic alternative:
+    \begin{itemize}
+        \item Represents high-level program entities — classes, structs, functions — instead of raw syntax trees.
+        \item Simplifies cross-language analysis by focusing on shared structural concepts.
+        \item Reduces dependency on language frontends and heavy parsing.
+    \end{itemize}
+    \item Enables more flexible and extensible analysis frameworks built around \textbf{semantic equivalence} rather than syntax.
+    \item Often requires custom frontends to build the meta-model from source code.
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Advanced Data Structures}
+  \begin{itemize}
+      \item Beyond traditional frontends, new data structures have been designed for specific analysis tasks 
+      (e.g., code navigation, reference resolution).
+      \item Evaluated the use of \textbf{Stack Graphs} — composable graphs representing identifiers 
+      and their relationships — for language-independent reference resolution.
+      \item Showed promising accuracy but faced:
+      \begin{itemize}
+          \item Practical and scalability limitations.
+          \item Partial language-independence: graph construction still required language-specific CST queries.
+      \end{itemize}
+      \item Despite limitations, the study highlighted:
+      \begin{itemize}
+          \item The potential of \textbf{language-independent analysis}.
+          \item Its value as a guiding principle for future software analysis strategies.
+      \end{itemize}
+  \end{itemize}
 \end{frame}
 
 \section{A New Solution}
@@ -209,20 +455,124 @@
   A New Solution
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
   \frametitle{Very different ...}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \begin{figure}
+        \begin{center}
+          \includegraphics[width=1.0\textwidth]{figures/solution/code-python.png}
+        \end{center}
+      \end{figure}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \begin{figure}
+        \begin{center}
+          \includegraphics[width=1.0\textwidth]{figures/solution/code-cpp.png}
+        \end{center}
+      \end{figure}
+    \end{column}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{... Or very similar?}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.5\textwidth}
+    \scalebox{0.75}{
+    \begin{forest}
+      [call\_expression
+        [field\_expression
+                    [field\_expression
+                                [call\_expression
+                                            [field\_expression
+                                                        [field\_expression
+                                                                    [identifier]
+                                                                    [field\_identifier]]
+                                                        [field\_identifier]]
+                                            [argument\_list]]
+                                [field\_identifier]]
+                    [field\_identifier]]
+        [argument\_list]]
+    \end{forest}
+    }
+    \end{column}
+
+    \begin{column}{0.5\textwidth}
+    \scalebox{0.75}{
+    \begin{forest}
+      [call
+        [attribute
+                    [attribute
+                              [call
+                                        [attribute
+                                                    [attribute
+                                                              [identifier]
+                                                              [identifier]]
+                                                    [identifier]]
+                                        [argument\_list]]
+                              [identifier]]
+                    [identifier]]
+        [argument\_list]]
+    \end{forest}
+    }
+    \end{column}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Tree Sitter}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \begin{figure}
+        \begin{center}
+          \includegraphics[width=0.5\textwidth]{figures/solution/tree-sitter-logo.png}
+        \end{center}
+      \end{figure}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \begin{itemize}
+        \item Tree-sitter is a parser generator tool and an incremental parsing library.
+        \item It can build a concrete syntax tree for a source file and efficiently update the syntax tree as the source file is edited.
+      \end{itemize}
+    \end{column}
+  \end{columns}
+  \begin{itemize}
+    \item General enough to parse any programming language
+    \item Fast enough to parse on every keystroke in a text editor
+    \item Robust enough to provide useful results even in the presence of syntax errors
+    \item Dependency-free so that the runtime library (which is written in pure C11) can be embedded in any application
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Why Tree Sitter?}
+  Tree Sitter is not only easy to operate, but it is also easy to implement parsers for new languages.
+
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \begin{figure}
+        \begin{center}
+          \includegraphics[width=1.0\textwidth]{figures/solution/ts-lart-cst.png}
+          \caption{Example of Lart CST}
+        \end{center}
+      \end{figure}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \begin{figure}
+        \begin{center}
+          \includegraphics[width=1.0\textwidth]{figures/solution/ts-lart-code.png}
+          \caption{Example of Lart code}
+        \end{center}
+      \end{figure}
+      \begin{figure}
+        \begin{center}
+          \includegraphics[width=1.0\textwidth]{figures/solution/ts-lart-grammar.png}
+          \caption{Slice of Lart grammar as TS config}
+        \end{center}
+      \end{figure}
+    \end{column}
+  \end{columns}
 \end{frame}
 
 \begin{frame}

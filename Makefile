@@ -2,7 +2,7 @@ SLIDES=slides
 
 @all: ${SLIDES}.pdf
 
-${SLIDES}.pdf: ${SLIDES}.tex quotes.bib
+${SLIDES}.pdf: ${SLIDES}.tex figures/**/*.png quotes.bib
 	pdflatex ${SLIDES}.tex
 	bibtex ${SLIDES}
 	pdflatex ${SLIDES}.tex
