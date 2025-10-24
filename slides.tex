@@ -1,6 +1,7 @@
-\documentclass[dvipsnames, 10pt]{beamer}
+\documentclass[dvipsnames, 10pt, table]{beamer}
 \usepackage{graphicx}
 \usepackage{listings}
+\usepackage{xcolor}
 \usepackage[
   backend=bibtex,
   style=ieee,
@@ -8,6 +9,27 @@
   ]{biblatex}
 \usepackage[edges]{forest}
 \addbibresource{quotes.bib}
+
+\lstset{basicstyle=\footnotesize\ttfamily,
+        keywordstyle=\footnotesize\color{blue}\ttfamily}
+
+\lstdefinestyle{tssg}{
+  %belowcaptionskip=1\baselineskip,
+  %breaklines=true,
+  %frame=L,
+  %xleftmargin=\parindent,
+  showstringspaces=false,
+  keywordstyle=\bfseries\color{green!40!black},
+  morekeywords={let, node, attr, edge, "=", "->"},
+  identifierstyle=\color{blue},
+  stringstyle=\color{orange},
+}
+
+\lstdefinestyle{yaml}{
+  keywordstyle=\bfseries\color{green!40!black},
+  morekeywords={nodes, edges, filepaths, name, kind, source, sink},
+  % identifierstyle=\color{cyan},
+}
 
 \definecolor{PastelGreen}{HTML}{1A7A67}
 \definecolor{PastelBlue}{HTML}{2C3E50}
@@ -63,7 +85,7 @@
 
 % \usecolortheme[named=PastelBlue]{structure}
 
-\date[25 September 2025]{}
+\date[6 November 2025]{}
 
 \title[TSD Seminary]{A Language-Agnostic Framework for Dependency Graph Construction}
 \subtitle{}
@@ -359,7 +381,6 @@
     \item A project can use more than one language, which is usually not supported by tools
     \item Each language interface usually need a different implementation for the same logic
     \item Sometimes it is easier to develop a distinct version of each language
-    \item More in the next section ...
   \end{itemize}
   \begin{figure}
     \begin{center}
@@ -446,6 +467,33 @@
           \item Its value as a guiding principle for future software analysis strategies.
       \end{itemize}
   \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{ADS / Stack Graphs}
+  \begin{columns}
+    \begin{column}{0.50\textwidth}
+      \begin{itemize}
+        \item Composable graph
+        \item Represents identifiers and scopes of source code
+        \item Enables language agnostic reference resolution
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.50\textwidth}
+      \lstinputlisting[language=Java]{listings/stack-graphs/code-example.java}
+    \end{column}
+  \end{columns}
+  \putimage{figures/stack-graphs/stackgraph-example.png}{0.99}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{ADS / Tree Sitter Stack Graphs}
+  \begin{itemize}
+    \item A "TSSG" Grammar is composed of pairs
+    \item Each pair matches a section of the CST with some procedural code
+    \item Definition of nodes, edges and labels
+  \end{itemize}
+  \lstinputlisting[style=tssg]{listings/stack-graphs/tssg-example.txt}
 \end{frame}
 
 \section{A New Solution}
@@ -587,8 +635,14 @@
   \frametitle{Shenanigans}
 \end{frame}
 
+\begin{frame}[fragile]
+  \frametitle{An Example / The Code}
+  \lstinputlisting[language=Java]{listings/approach/code-example.java}
+\end{frame}
+
 \begin{frame}
-  \frametitle{An Example}
+  \frametitle{An Example / The Dependency Graph}
+  \putimage{figures/approach/depgraph-example.png}{0.99}
 \end{frame}
 
 \section{Evaluation and Comparison}
@@ -598,16 +652,136 @@
   Evaluation and Comparison
 \end{frame}
 
+\begin{frame}[fragile]
+  \frametitle{The Testing Framework}
+
+  \begin{block}{}
+    Tests are described with YAML manifests including constraints on nodes and edges that must be detected in the dependency graph written by the tool
+  \end{block}
+
+  \begin{columns}
+    \begin{column}{0.64\textwidth}
+      \lstinputlisting[style=yaml]{listings/testing/test-manifest-example.yml}
+    \end{column}
+    \begin{column}{0.34\textwidth}
+      \begin{itemize}
+        \item node types: class, function, enum ...
+        \item edge types: definedBy, includes, usesType, calls ...
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
 \begin{frame}
   \frametitle{The Dependency Detection Benchmark}
+  \begin{figure}
+    \begin{center}
+      \includegraphics[width=0.6\textwidth]{figures/testing/benchmark-table-1.png}
+    \end{center}
+  \end{figure}
 \end{frame}
 
 \begin{frame}
-  \frametitle{The Dependency Detection Benchmark (JAVA)}
+  \frametitle{The Dependency Detection Benchmark}
+  \begin{figure}
+    \begin{center}
+      \includegraphics[width=0.9\textwidth]{figures/testing/benchmark-table-2.png}
+    \end{center}
+  \end{figure}
+	\footnote{The accuracy of dependency analysis in static architecture compliance checking, Pruijt et Al, Softw. Pract. Exp. 2017}
 \end{frame}
 
 \begin{frame}
-  \frametitle{The Dependency Detection Benchmark (RUST)}
+  \frametitle{DDB / JAVA}
+  \begin{columns}
+    \begin{column}{0.3\textwidth}
+      \begin{figure}
+        \begin{center}
+          \includegraphics[width=1.0\textwidth]{figures/testing/pie-plot-java-arcan.png}
+          \caption{Adherence of Arcan}
+        \end{center}
+      \end{figure}
+    \end{column}
+    \begin{column}{0.3\textwidth}
+      \begin{figure}
+        \begin{center}
+          \includegraphics[width=1.0\textwidth]{figures/testing/pie-plot-java-refolli.png}
+          \caption{Adherence of the Stack-Graph based solution}
+        \end{center}
+      \end{figure}
+    \end{column}
+    \begin{column}{0.33\textwidth}
+      \begin{figure}
+        \begin{center}
+          \includegraphics[width=1.0\textwidth]{figures/testing/pie-plot-java-teruzzi.png}
+          \caption{Adherence of the new proposed solution}
+        \end{center}
+      \end{figure}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{DDB / JAVA}
+  \begin{figure}
+    \begin{center}
+      \includegraphics[width=1.0\textwidth]{figures/testing/bar-plot-java.png}
+    \end{center}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{DDB / RUST}
+  \begin{figure}
+    \begin{center}
+      \includegraphics[width=0.7\textwidth]{figures/testing/pie-plot-rust-teruzzi.png}
+      \caption{Adherence of the new proposed solution}
+    \end{center}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{DDB / RUST}
+  \begin{figure}
+    \begin{center}
+      \includegraphics[width=1.0\textwidth]{figures/testing/bar-plot-rust.png}
+    \end{center}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Comparison with the previous iteration}
+
+  \begin{block}{}
+    \begin{itemize}
+      \item The Stack-Graph based solution had a decent effectiveness when dealing with small scale projects, but efficiency is another story.
+      \item In some cases it didn't even complete the scan within a reasonable time.
+      \item For these reasons, the comparison is drawn mainly with Arcan in the next slides.
+    \end{itemize}
+  \end{block}
+  
+  \center
+  \begin{tabular}{|l|l|l|l|l|}
+      \hline
+      \textbf{Project} & \textbf{Tool} & \textbf{Min} & \textbf{Max} & \textbf{Mean execution time} \\ \hline
+      \hline
+      \rowcolor[HTML]{EED49F} 
+      JUnit4   & Stack-Graph & 65,82  & 69,07  & 65,88     \\ \hline
+      \rowcolor[HTML]{A6DA95} 
+      JUnit4   & Arcan     & 13,850 & 17,079 & 14,611    \\ \hline
+      \rowcolor[HTML]{EED49F} 
+      JUnit5   & Stack-Graph & 132,87 & 134,75 & 134,44    \\ \hline
+      \rowcolor[HTML]{A6DA95} 
+      JUnit5   & Arcan     & 42,542 & 47,613 & 44,186    \\ \hline
+      \rowcolor[HTML]{EED49F} 
+      ANTLR    & Stack-Graph & 171,65 & 175,49 & 172,64    \\ \hline
+      \rowcolor[HTML]{A6DA95} 
+      ANTLR    & Arcan     & 19,222 & 20,140 & 19,691    \\ \hline
+      \rowcolor[HTML]{ED8796} 
+      Fastjson & Stack-Graph & N/A    & N/A    & N/A       \\ \hline
+      \rowcolor[HTML]{A6DA95} 
+      Fastjson & Arcan     & 66,932 & 71,094 & 69,071    \\ \hline
+  \end{tabular}
 \end{frame}
 
 \begin{frame}
