@@ -1,0 +1,5 @@
+(method_declaration
+  type: (void_type)
+  name: (identifier)
+  parameters: (formal_parameters)
+  body: (block))

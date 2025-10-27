@@ -1,0 +1,8 @@
+if tsnode.type == Lang.tags.defun {
+  let function = Function {
+    name: process_name(tsnode.get_field(Lang.tags.defun.direct.name)),
+    type: process_type(tsnode.get_field(Lang.tags.defun.direct.type)),
+  }
+  process_parameters(tsndoe.get_field(Lang.tags.defun.direct.parameters));
+  process_body(tsnode.get_field(Lang.tags.defun.direct.body));
+}

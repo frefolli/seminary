@@ -1,6 +1,8 @@
 \documentclass[dvipsnames, 10pt, table]{beamer}
 \usepackage{graphicx}
 \usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{listings-rust}
 \usepackage{xcolor}
 \usepackage[
   backend=bibtex,
@@ -23,6 +25,20 @@
   morekeywords={let, node, attr, edge, "=", "->"},
   identifierstyle=\color{blue},
   stringstyle=\color{orange},
+}
+
+\lstdefinestyle{tscst}{
+  %belowcaptionskip=1\baselineskip,
+  %breaklines=true,
+  %frame=L,
+  %xleftmargin=\parindent,
+  showstringspaces=false,
+  keywordstyle=\bfseries\color{green!40!black},
+  morekeywords={type:, name:, parameters:, declarator:, body:, return_type:},
+  identifierstyle=\color{blue},
+  stringstyle=\color{orange},        
+  alsoletter={-},
+  alsodigit={:}
 }
 
 \lstdefinestyle{yaml}{
@@ -625,14 +641,121 @@
 
 \begin{frame}
   \frametitle{The Approach}
+
+  \begin{block}{Development}
+    \begin{itemize}
+      \item Gain initial knowledge of a language's \textbf{grammar}
+      \item Gain initial knowledge of a language's \textbf{semantics}
+      \item Prepare a \textbf{language benchmark} to verify that the implementation is correct
+      \item Each programming language shall be described as a \textbf{feature set}
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Operation}
+    \begin{itemize}
+      \item Extract CSTs with \textbf{Tree Sitter} for each file
+      \item Traverse the CSTs to capture the components definitions and the references
+      \item Construct a \textit{Language-Independent} \textbf{Component Tree}
+      \item Accumulate the \textbf{Dependency Queries}
+      \item Resolve the Dependency Queries with the Component Tree into the \textbf{Dependency Graph}
+      \item Export the Dependency Graph to JSON
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{How it works / CST Traversal / Analysis}
+  \begin{columns}
+    \begin{column}{0.50\textwidth}
+      \center
+      \textbf{Java}
+      \lstinputlisting[style=tscst]{listings/approach/cst-traversal/analysis/java.txt}
+    \end{column}
+    \begin{column}{0.50\textwidth}
+      \center
+      \textbf{Rust}
+      \lstinputlisting[style=tscst]{listings/approach/cst-traversal/analysis/rust.txt}
+    \end{column}
+  \end{columns}
+  \begin{columns}
+    \begin{column}{0.50\textwidth}
+      \center
+      \textbf{C++}
+      \lstinputlisting[style=tscst]{listings/approach/cst-traversal/analysis/cpp.txt}
+    \end{column}
+    \begin{column}{0.50\textwidth}
+      \center
+      \textbf{Python}
+      \lstinputlisting[style=tscst]{listings/approach/cst-traversal/analysis/python.txt}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{How it works / CST Traversal / Translation}
+  \begin{columns}
+    \begin{column}{0.50\textwidth}
+      \center
+      \textbf{Java}
+      \begin{adjustbox}{width=\textwidth,keepaspectratio}
+        \lstinputlisting[language=Rust]{listings/approach/cst-traversal/translation/java.txt}
+      \end{adjustbox}
+    \end{column}
+    \begin{column}{0.50\textwidth}
+      \center
+      \textbf{Rust}
+      \begin{adjustbox}{width=\textwidth,keepaspectratio}
+        \lstinputlisting[language=Rust]{listings/approach/cst-traversal/translation/rust.txt}
+      \end{adjustbox}
+    \end{column}
+  \end{columns}
+  \begin{columns}
+    \begin{column}{0.50\textwidth}
+      \center
+      \textbf{C++}
+      \begin{adjustbox}{width=\textwidth,keepaspectratio}
+        \lstinputlisting[language=Rust]{listings/approach/cst-traversal/translation/cpp.txt}
+      \end{adjustbox}
+    \end{column}
+    \begin{column}{0.50\textwidth}
+      \center
+      \textbf{Python}
+      \begin{adjustbox}{width=\textwidth,keepaspectratio}
+        \lstinputlisting[language=Rust]{listings/approach/cst-traversal/translation/python.txt}
+      \end{adjustbox}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{How it works / CST Traversal / Generalization}
+  \begin{center}
+      \textbf{Java / Rust / Python}
+      \begin{adjustbox}{width=\textwidth,keepaspectratio}
+        \lstinputlisting[language=Rust]{listings/approach/cst-traversal/generalization/java-rust-python.txt}
+      \end{adjustbox}
+
+      \textbf{C / C++}
+      \begin{adjustbox}{width=\textwidth,keepaspectratio}
+        \lstinputlisting[language=Rust]{listings/approach/cst-traversal/generalization/cpp.txt}
+      \end{adjustbox}
+  \end{center}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Why it works}
+  \frametitle{How it works / Dependency Resolution}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Shenanigans}
+  \frametitle{Shenanigans / Ghost Nodes}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Shenanigans / Operator Overloading}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Shenanigans / Deref Trait}
 \end{frame}
 
 \begin{frame}[fragile]

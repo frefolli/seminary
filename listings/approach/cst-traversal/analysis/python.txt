@@ -1,0 +1,5 @@
+(function_definition
+  name: (identifier)
+  parameters: (parameters)
+  return_type: (type (none))
+  body: (block (pass_statement)))
