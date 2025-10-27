@@ -743,7 +743,38 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{How it works / Dependency Resolution}
+  \frametitle{How it works / Dependency Resolution / Identifier Chains}
+  \begin{columns}
+    \begin{column}{0.40\textwidth}
+      \begin{figure}
+        \begin{center}
+          \includegraphics[width=1.0\textwidth]{figures/approach/dependency-resolution/identifier-chains/component-graph.png}
+        \end{center}
+      \end{figure}
+    \end{column}
+    \begin{column}{0.60\textwidth}
+      \begin{block}{}
+        \center
+        \begin{adjustbox}{width=\textwidth,keepaspectratio}
+          \lstinputlisting[language=Python]{listings/approach/dependency-resolution/identifer-chains/resolve.py}
+        \end{adjustbox}
+      \end{block}
+
+      \begin{block}{}
+        \center
+        \begin{adjustbox}{width=\textwidth,keepaspectratio}
+          \lstinputlisting[language=Python]{listings/approach/dependency-resolution/identifer-chains/going-up.py}
+        \end{adjustbox}
+      \end{block}
+
+      \begin{block}{}
+        \center
+        \begin{adjustbox}{width=\textwidth,keepaspectratio}
+          \lstinputlisting[language=Python]{listings/approach/dependency-resolution/identifer-chains/going-down.py}
+        \end{adjustbox}
+      \end{block}
+    \end{column}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
@@ -889,19 +920,19 @@
       \textbf{Project} & \textbf{Tool} & \textbf{Min} & \textbf{Max} & \textbf{Mean execution time} \\ \hline
       \hline
       \rowcolor[HTML]{EED49F} 
-      JUnit4   & Stack-Graph & 65,82  & 69,07  & 65,88     \\ \hline
+      JUnit4   & Stack-Graph & 65,82  & 69,07  & 65,88   \\ \hline
       \rowcolor[HTML]{A6DA95} 
       JUnit4   & Arcan     & 13,850 & 17,079 & 14,611    \\ \hline
       \rowcolor[HTML]{EED49F} 
-      JUnit5   & Stack-Graph & 132,87 & 134,75 & 134,44    \\ \hline
+      JUnit5   & Stack-Graph & 132,87 & 134,75 & 134,44  \\ \hline
       \rowcolor[HTML]{A6DA95} 
       JUnit5   & Arcan     & 42,542 & 47,613 & 44,186    \\ \hline
       \rowcolor[HTML]{EED49F} 
-      ANTLR    & Stack-Graph & 171,65 & 175,49 & 172,64    \\ \hline
+      ANTLR    & Stack-Graph & 171,65 & 175,49 & 172,64  \\ \hline
       \rowcolor[HTML]{A6DA95} 
       ANTLR    & Arcan     & 19,222 & 20,140 & 19,691    \\ \hline
       \rowcolor[HTML]{ED8796} 
-      Fastjson & Stack-Graph & N/A    & N/A    & N/A       \\ \hline
+      Fastjson & Stack-Graph & N/A    & N/A    & N/A     \\ \hline
       \rowcolor[HTML]{A6DA95} 
       Fastjson & Arcan     & 66,932 & 71,094 & 69,071    \\ \hline
   \end{tabular}

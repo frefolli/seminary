@@ -3,6 +3,6 @@ if tsnode.type == "function_definition" {
     name: process_name(tsnode.get_field("name")),
     type: process_type(tsnode.get_field("return_type")),
   }
-  process_parameters(tsndoe.get_field("parameters"));
+  process_parameters(tsnode.get_field("parameters"));
   process_body(tsnode.get_field("body"));
 }
