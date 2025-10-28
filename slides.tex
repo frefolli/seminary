@@ -654,10 +654,10 @@
   \begin{block}{Operation}
     \begin{itemize}
       \item Extract CSTs with \textbf{Tree Sitter} for each file
-      \item Traverse the CSTs to capture the components definitions and the references
-      \item Construct a \textit{Language-Independent} \textbf{Component Tree}
-      \item Accumulate the \textbf{Dependency Queries}
-      \item Resolve the Dependency Queries with the Component Tree into the \textbf{Dependency Graph}
+      \item \textcolor{ATMRed}{Traverse the CSTs to capture the components definitions and the references}
+      \item \textcolor{ATMRed}{Construct a \textit{Language-Independent} \textbf{Component Tree}}
+      \item \textcolor{ATMRed}{Accumulate the \textbf{Dependency Queries}}
+      \item \textcolor{ATMGreen}{Resolve the Dependency Queries with the Component Tree into the \textbf{Dependency Graph}}
       \item Export the Dependency Graph to JSON
     \end{itemize}
   \end{block}
@@ -697,32 +697,40 @@
     \begin{column}{0.50\textwidth}
       \center
       \textbf{Java}
-      \begin{adjustbox}{width=\textwidth,keepaspectratio}
-        \lstinputlisting[language=Rust]{listings/approach/cst-traversal/translation/java.txt}
-      \end{adjustbox}
+      \begin{figure}
+        \begin{center}
+          \includegraphics[width=1.0\textwidth]{figures/approach/cst-traversal/translation/java.png}
+        \end{center}
+      \end{figure}
     \end{column}
     \begin{column}{0.50\textwidth}
       \center
       \textbf{Rust}
-      \begin{adjustbox}{width=\textwidth,keepaspectratio}
-        \lstinputlisting[language=Rust]{listings/approach/cst-traversal/translation/rust.txt}
-      \end{adjustbox}
+      \begin{figure}
+        \begin{center}
+          \includegraphics[width=1.0\textwidth]{figures/approach/cst-traversal/translation/rust.png}
+        \end{center}
+      \end{figure}
     \end{column}
   \end{columns}
   \begin{columns}
     \begin{column}{0.50\textwidth}
       \center
       \textbf{C++}
-      \begin{adjustbox}{width=\textwidth,keepaspectratio}
-        \lstinputlisting[language=Rust]{listings/approach/cst-traversal/translation/cpp.txt}
-      \end{adjustbox}
+      \begin{figure}
+        \begin{center}
+          \includegraphics[width=1.0\textwidth]{figures/approach/cst-traversal/translation/cpp.png}
+        \end{center}
+      \end{figure}
     \end{column}
     \begin{column}{0.50\textwidth}
       \center
       \textbf{Python}
-      \begin{adjustbox}{width=\textwidth,keepaspectratio}
-        \lstinputlisting[language=Rust]{listings/approach/cst-traversal/translation/python.txt}
-      \end{adjustbox}
+      \begin{figure}
+        \begin{center}
+          \includegraphics[width=1.0\textwidth]{figures/approach/cst-traversal/translation/python.png}
+        \end{center}
+      \end{figure}
     \end{column}
   \end{columns}
 \end{frame}
@@ -731,15 +739,28 @@
   \frametitle{How it works / CST Traversal / Generalization}
   \begin{center}
       \textbf{Java / Rust / Python}
-      \begin{adjustbox}{width=\textwidth,keepaspectratio}
-        \lstinputlisting[language=Rust]{listings/approach/cst-traversal/generalization/java-rust-python.txt}
-      \end{adjustbox}
+      \begin{figure}
+        \begin{center}
+          \includegraphics[width=1.0\textwidth]{figures/approach/cst-traversal/generalization/java-rust-python.png}
+        \end{center}
+      \end{figure}
 
       \textbf{C / C++}
-      \begin{adjustbox}{width=\textwidth,keepaspectratio}
-        \lstinputlisting[language=Rust]{listings/approach/cst-traversal/generalization/cpp.txt}
-      \end{adjustbox}
+      \begin{figure}
+        \begin{center}
+          \includegraphics[width=1.0\textwidth]{figures/approach/cst-traversal/generalization/cpp.png}
+        \end{center}
+      \end{figure}
   \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{How it works / Dependency Resolution / Identifier Chains}
+  \begin{figure}
+    \begin{center}
+      \includegraphics[width=0.7\textwidth]{figures/approach/dependency-resolution/identifier-chains/component-graph.png}
+    \end{center}
+  \end{figure}
 \end{frame}
 
 \begin{frame}
@@ -778,15 +799,83 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Shenanigans / Ghost Nodes}
+  \frametitle{How it works / Dependency Resolution / Type Resolution}
+  \center
+  \begin{figure}
+    \begin{center}
+      \includegraphics[width=0.8\textwidth]{figures/approach/dependency-resolution/type-resolution/component-graph.png}
+    \end{center}
+  \end{figure}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Shenanigans / Operator Overloading}
+  \frametitle{How it works / Dependency Resolution / Type Resolution}
+  \begin{columns}
+    \begin{column}{0.40\textwidth}
+      \begin{figure}
+        \begin{center}
+          \includegraphics[width=1.0\textwidth]{figures/approach/dependency-resolution/type-resolution/component-graph.png}
+        \end{center}
+      \end{figure}
+    \end{column}
+    \begin{column}{0.60\textwidth}
+      \begin{block}{}
+        \center
+        \begin{adjustbox}{width=\textwidth,keepaspectratio}
+          \lstinputlisting[language=Python]{listings/approach/dependency-resolution/type-resolution/resolve.py}
+        \end{adjustbox}
+      \end{block}
+    \end{column}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Shenanigans / Deref Trait}
+  \frametitle{How it cheats / Ghost Nodes}
+  \begin{alertblock}{Problem}
+    \begin{itemize}
+      \item Code definitions are caught through CST traversal
+      \item References can be solved iff both source and target are on the graph
+      \item TPL's components cannot be detected because their code isn't read
+      \item References TPL's components cannot be detected because they aren't on the graph
+    \end{itemize}
+  \end{alertblock}
+  \begin{block}{Example}
+    package domain.direct.violating;
+    import fi.foyt.foursquare.api.FoursquareApi;
+    public class CallConstructorLibraryClass {
+      public void handleCallback() {
+          new FoursquareApi("Client ID", "Client Secret", "Callback URL");
+      }
+    }
+  \end{block}
+  \begin{exampleblock}{Solution}
+    \begin{itemize}
+      \item Every time we should find a component but nothing is there
+      \item Ex: a method 'foo' inside class 'FoursquareApi' which isn't there
+      \item Create a 'ghost' node with volatile kind so that we can decided what to do
+      \item It can appear into/disappear from the graph if we want
+    \end{itemize}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  \frametitle{How it cheats / Operator Overloading}
+  \begin{alertblock}{Problem}
+  \end{alertblock}
+  \begin{block}{Example}
+  \end{block}
+  \begin{exampleblock}{Solution}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  \frametitle{How it cheats / Deref Trait}
+  \begin{alertblock}{Problem}
+  \end{alertblock}
+  \begin{block}{Example}
+  \end{block}
+  \begin{exampleblock}{Solution}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
