@@ -840,20 +840,16 @@
     \end{itemize}
   \end{alertblock}
   \begin{block}{Example}
-    package domain.direct.violating;
-    import fi.foyt.foursquare.api.FoursquareApi;
-    public class CallConstructorLibraryClass {
-      public void handleCallback() {
-          new FoursquareApi("Client ID", "Client Secret", "Callback URL");
-      }
-    }
+    %\begin{adjustbox}{width=\textwidth,keepaspectratio}
+      \center
+      \lstinputlisting[language=Java]{listings/approach/cheating/ghost-nodes.java}
+    %\end{adjustbox}
   \end{block}
   \begin{exampleblock}{Solution}
     \begin{itemize}
       \item Every time we should find a component but nothing is there
       \item Ex: a method 'foo' inside class 'FoursquareApi' which isn't there
-      \item Create a 'ghost' node with volatile kind so that we can decided what to do
-      \item It can appear into/disappear from the graph if we want
+      \item Create a 'ghost' node with volatile a kind so that we can decided what to do
     \end{itemize}
   \end{exampleblock}
 \end{frame}
@@ -861,20 +857,48 @@
 \begin{frame}
   \frametitle{How it cheats / Operator Overloading}
   \begin{alertblock}{Problem}
+    \begin{itemize}
+      \item Some programming languages allow operator overloading
+      \item Syntactically, these are treated as binary/monary operators
+      \item Overloaded operators carry complex logic
+    \end{itemize}
   \end{alertblock}
   \begin{block}{Example}
+    \center
+    \begin{adjustbox}{width=0.5\textwidth,keepaspectratio}
+      \lstinputlisting[language=C++]{listings/approach/cheating/operator-overloading.cc}
+    \end{adjustbox}
   \end{block}
   \begin{exampleblock}{Solution}
+    \begin{itemize}
+      \item Usually, programming languages define overloading as methods
+      \item We can intercept those method definitions knowing their encoded name
+      \item We can guess their name since they usually have a naming schema
+      \item This data can be added to the language feature set
+    \end{itemize}
   \end{exampleblock}
 \end{frame}
 
 \begin{frame}
   \frametitle{How it cheats / Deref Trait}
   \begin{alertblock}{Problem}
+    \begin{itemize}
+      \item Rust and other languages allow definitions of Delegate Operands
+      \item These delegates are not defined as parent classes or target of implementations
+      \item Languages don't offer clear indicators at component definition level
+    \end{itemize}
   \end{alertblock}
   \begin{block}{Example}
+    %\begin{adjustbox}{width=\textwidth,keepaspectratio}
+      \center
+      \lstinputlisting[language=Rust]{listings/approach/cheating/defer-trait.rs}
+    %\end{adjustbox}
   \end{block}
   \begin{exampleblock}{Solution}
+    \begin{itemize}
+      \item Usually these are implemented as methods or attributes
+      \item Knowing how they are named, we can intercept them
+    \end{itemize}
   \end{exampleblock}
 \end{frame}
 
