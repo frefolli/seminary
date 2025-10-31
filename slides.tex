@@ -1078,10 +1078,50 @@
 
 \begin{frame}
   \frametitle{Open Problems}
+  \begin{alertblock}{Functional Problems}
+    \begin{itemize}
+      \item Package name detection is not working properly
+      \item Multi-crate projects are not supported
+      \item Traits are not fully supported
+      \item Generics are not supported
+    \end{itemize}
+  \end{alertblock}
+
+  \begin{block}{Structural Problems}
+    \begin{itemize}
+      \item The prototype is exploratory, with readability issues due to inexperience
+      \item Early work hinders future progress and will need a full rewrite
+      \item Caching and multithreading are missing
+      \item The graph includes debug fields and doesn't handle duplicate dependencies
+      \item File discovery is not properly handled
+    \end{itemize}
+  \end{block}
 \end{frame}
 
 \begin{frame}
   \frametitle{Future Works}
+  
+  \begin{block}{Consequences}
+    \begin{itemize}
+      \item The prototype was an exploratory artifact, answering to a specific research question: "is it possible?"
+      \item As such it has accomplished its purpose: "now it can be trashed"
+      \item More work shall be done in order to get an usable framework
+    \end{itemize}
+  \end{block}
+
+  \begin{exampleblock}{Research Path}
+    \begin{itemize}
+      \item Formalize the approach (and maybe prove its correctness)
+      \item Design an implementation scheme in advance
+      \item Rewrite the prototype into its 3rd iteration
+    \end{itemize}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  \centering
+  \Huge
+  Thank You
 \end{frame}
 
 \begin{frame}[allowframebreaks, noframenumbering]
